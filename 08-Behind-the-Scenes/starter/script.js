@@ -127,3 +127,54 @@
 // // f();
 
 // Arrow functions vs Regualar functions
+var firstName = 'Deborah';
+
+const raesup = {
+  firstName: 'Raesup',
+  year: 1986,
+  calcAge: function () {
+    //in method, this = object which is calling the method
+    console.log(this);
+    console.log(2021 - this.year);
+
+    //inner function cannot recongnize this keyword so that have to declare extra variable for this.
+    const self = this;
+
+    const isMillenial = function () {
+      console.log(self.year >= 1981 && self.year <= 1996);
+    };
+    isMillenial();
+
+    //arrow function's this keyword inherits parents scope's this keyword, so works in this case.
+    const isMillenial1 = () =>
+      console.log(this.year >= 1981 && this.year <= 1996);
+    isMillenial1();
+  },
+
+  //   arrow function does not work with this keyword
+  greet: () => console.log(`Hey, ${this.firstName}`),
+
+  //   works fine
+  //   greet: function () {
+  //     console.log(`Hey, ${this.firstName}`);
+  //   },
+};
+
+// print deborah instead of raesup, risk of var and risk of using this keyword in arrow function
+raesup.greet();
+raesup.calcAge();
+
+const addExpr = function (a, b) {
+  console.log(arguments);
+  return a + b;
+};
+
+addExpr(2, 5, 8);
+
+// arrow function do not have arguments objects
+const addArrow = (a, b) => {
+  //   console.log(arguments);
+  return a + b;
+};
+
+addArrow(2, 5, 8);
