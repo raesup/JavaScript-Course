@@ -126,55 +126,105 @@
 // // Error because year property is not defined for object
 // // f();
 
-// Arrow functions vs Regualar functions
-var firstName = 'Deborah';
+// // Arrow functions vs Regualar functions
+// var firstName = 'Deborah';
 
+// const raesup = {
+//   firstName: 'Raesup',
+//   year: 1986,
+//   calcAge: function () {
+//     //in method, this = object which is calling the method
+//     console.log(this);
+//     console.log(2021 - this.year);
+
+//     //inner function cannot recongnize this keyword so that have to declare extra variable for this.
+//     const self = this;
+
+//     const isMillenial = function () {
+//       console.log(self.year >= 1981 && self.year <= 1996);
+//     };
+//     isMillenial();
+
+//     //arrow function's this keyword inherits parents scope's this keyword, so works in this case.
+//     const isMillenial1 = () =>
+//       console.log(this.year >= 1981 && this.year <= 1996);
+//     isMillenial1();
+//   },
+
+//   //   arrow function does not work with this keyword
+//   greet: () => console.log(`Hey, ${this.firstName}`),
+
+//   //   works fine
+//   //   greet: function () {
+//   //     console.log(`Hey, ${this.firstName}`);
+//   //   },
+// };
+
+// // print deborah instead of raesup, risk of var and risk of using this keyword in arrow function
+// raesup.greet();
+// raesup.calcAge();
+
+// const addExpr = function (a, b) {
+//   console.log(arguments);
+//   return a + b;
+// };
+
+// addExpr(2, 5, 8);
+
+// // arrow function do not have arguments objects
+// const addArrow = (a, b) => {
+//   //   console.log(arguments);
+//   return a + b;
+// };
+
+// addArrow(2, 5, 8);
+
+// let age = 34;
+// let oldAge = age;
+// age = 35;
+// console.log(age);
+// console.log(oldAge);
+
+// // const object can be modified because it is stored in the heap, not stack.
+// const me = {
+//   name: 'raesup',
+//   age: 34,
+// };
+
+// const raesup = me;
+// raesup.age = 35;
+
+// console.log('Raesup', raesup);
+// console.log('Me', me);
+
+// Primitive Types
+let lastName = 'Kim';
+let oldLastName = lastName;
+lastName = 'Deborah';
+console.log(lastName, oldLastName);
+
+// Reference Types
 const raesup = {
   firstName: 'Raesup',
-  year: 1986,
-  calcAge: function () {
-    //in method, this = object which is calling the method
-    console.log(this);
-    console.log(2021 - this.year);
-
-    //inner function cannot recongnize this keyword so that have to declare extra variable for this.
-    const self = this;
-
-    const isMillenial = function () {
-      console.log(self.year >= 1981 && self.year <= 1996);
-    };
-    isMillenial();
-
-    //arrow function's this keyword inherits parents scope's this keyword, so works in this case.
-    const isMillenial1 = () =>
-      console.log(this.year >= 1981 && this.year <= 1996);
-    isMillenial1();
-  },
-
-  //   arrow function does not work with this keyword
-  greet: () => console.log(`Hey, ${this.firstName}`),
-
-  //   works fine
-  //   greet: function () {
-  //     console.log(`Hey, ${this.firstName}`);
-  //   },
+  lastName: 'Kim',
+  age: 34,
 };
 
-// print deborah instead of raesup, risk of var and risk of using this keyword in arrow function
-raesup.greet();
-raesup.calcAge();
+const marriedRaesup = raesup;
+marriedRaesup.lastName = 'Kwon';
+console.log('Before marriage:', raesup);
+console.log('After marriage:', marriedRaesup);
 
-const addExpr = function (a, b) {
-  console.log(arguments);
-  return a + b;
+// Copying objects
+const raesup2 = {
+  firstName: 'Raesup',
+  lastName: 'Kim',
+  age: 34,
+  family: ['Deborah', 'Arin'],
 };
 
-addExpr(2, 5, 8);
-
-// arrow function do not have arguments objects
-const addArrow = (a, b) => {
-  //   console.log(arguments);
-  return a + b;
-};
-
-addArrow(2, 5, 8);
+const raesupCopy = Object.assign({}, raesup2);
+raesupCopy.lastName = 'Kwon';
+raesupCopy.family.push('Serin');
+console.log(raesup2);
+console.log(raesupCopy);
