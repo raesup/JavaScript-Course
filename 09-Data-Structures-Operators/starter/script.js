@@ -28,6 +28,15 @@ const restaurant = {
     );
   },
 
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(`Here is you delicious pasta with ${ing1}, ${ing2}, ${ing3}`);
+  },
+
+  orderPizza: function (mainIngredient, ...otherIngredients) {
+    console.log(mainIngredient);
+    console.log(otherIngredients);
+  },
+
   openingHours: {
     thu: {
       open: 12,
@@ -44,48 +53,151 @@ const restaurant = {
   },
 };
 
-///////////////////////////////////////////////////////////////
-// Destructuring Objects
-const { name, openingHours, categories } = restaurant;
-console.log(name, openingHours, categories);
+////////////////////////////////////////////////////////////////
+// Rest Pattern and Parameters
 
-const {
-  name: restaurantName,
-  openingHours: hours,
-  categories: tags,
-} = restaurant;
-console.log(restaurantName, hours, tags);
+// 1. Destructuring
+// Spread operator, because on RIGHT side of =
+const arr = [1, 2, ...[3, 4]];
+console.log(arr);
+//
+// Rest operator, because on LEFT side of =
+const [a, b, ...others] = [1, 2, 3, 4, 5];
+console.log(a, b, others);
 
-// Default values
-const { menu = [], starterMenu: starters = [] } = restaurant;
-console.log(menu, starters);
+const [c, , d, ...otherFood] = [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+];
+console.log(c, d, otherFood);
 
-// Mutating variables
-let a = 111;
-let b = 999;
-const obj = { a: 23, b: 7, c: 14 };
+// Objects
+const { sat, ...weekdays } = restaurant.openingHours;
+console.log();
+console.log(weekdays);
 
-({ a, b } = obj);
-console.log(a, b);
+// 2. Functions
+const add = function (...numbers) {
+  console.log(numbers);
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    sum += numbers[i];
+  }
+  return console.log(sum);
+};
 
-// nested objects
-const {
-  fri: { open: o, close: c },
-} = openingHours;
-console.log(o, c);
+add(2, 3);
+add(5, 3, 7, 2);
+add(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
-restaurant.orderDelivery({
-  time: '22:30',
-  address: 'Patina Park SW',
-  mainIndex: 2,
-  starterIndex: 2,
-});
+const x = [23, 5, 7];
+add(...x);
 
-restaurant.orderDelivery({
-  address: 'Patina Park SW',
-  starterIndex: 2,
-});
+const addArray = function (numbers) {
+  console.log(numbers);
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    sum += numbers[i];
+  }
+  return console.log(sum);
+};
 
+addArray(x);
+
+restaurant.orderPizza('mushrooms', 'a', 'b', 'c', 'd');
+////////////////////////////////////////////////////////////////
+
+// ////////////////////////////////////////////////////////////////
+// // Spread Operator (...)
+// const arr = [7, 8, 9];
+// const badNewArr = [1, 2, arr[0], arr[1], arr[2]];
+// console.log(badNewArr);
+
+// const goodNewArr = [1, 2, ...arr];
+// console.log(goodNewArr);
+
+// console.log(...goodNewArr);
+
+// const newMenu = [...restaurant.mainMenu, 'Fried Chicken'];
+// const newMenu1 = [restaurant.mainMenu, 'Fried Chicken'];
+// console.log(newMenu);
+// console.log(newMenu1);
+
+// // Copy Array
+// const mainMenuCopy = [...restaurant.mainMenu];
+// console.log(mainMenuCopy);
+
+// // Join Arrays
+// const menu = [...restaurant.mainMenu, ...restaurant.starterMenu];
+// console.log(menu);
+
+// // Iteralbles: arrays, strings, maps, sets. Not objects.
+// const str = 'Raesup';
+// const letters = [...str, ' ', 'S.'];
+// console.log(letters);
+// console.log(str);
+// console.log(...str);
+
+// // const ingredients = [
+// //   prompt("Let's make pasta! Ingredient 1?"),
+// //   prompt("Let's make pasta! Ingredient 2?"),
+// //   prompt("Let's make pasta! Ingredient 3?"),
+// // ];
+
+// // restaurant.orderPasta(...ingredients);
+
+// //Objects
+// const newRestaurant = { foundedIn: 2021, ...restaurant, founder: 'Raesup' };
+// console.log(newRestaurant);
+
+// //Shallow Copy
+// const restaurantCopy = { ...restaurant };
+// restaurantCopy.name = 'New Name';
+// console.log(restaurantCopy.name);
+// console.log(restaurant.name);
+////////////////////////////////////////////////////////////////
+
+// ///////////////////////////////////////////////////////////////
+// // Destructuring Objects
+// const { name, openingHours, categories } = restaurant;
+// console.log(name, openingHours, categories);
+
+// const {
+//   name: restaurantName,
+//   openingHours: hours,
+//   categories: tags,
+// } = restaurant;
+// console.log(restaurantName, hours, tags);
+
+// // Default values
+// const { menu = [], starterMenu: starters = [] } = restaurant;
+// console.log(menu, starters);
+
+// // Mutating variables
+// let a = 111;
+// let b = 999;
+// const obj = { a: 23, b: 7, c: 14 };
+
+// ({ a, b } = obj);
+// console.log(a, b);
+
+// // nested objects
+// const {
+//   fri: { open: o, close: c },
+// } = openingHours;
+// console.log(o, c);
+
+// restaurant.orderDelivery({
+//   time: '22:30',
+//   address: 'Patina Park SW',
+//   mainIndex: 2,
+//   starterIndex: 2,
+// });
+
+// restaurant.orderDelivery({
+//   address: 'Patina Park SW',
+//   starterIndex: 2,
+// });
 ///////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////
