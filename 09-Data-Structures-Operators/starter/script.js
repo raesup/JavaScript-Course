@@ -53,59 +53,201 @@ const restaurant = {
   },
 };
 
-////////////////////////////////////////////////////////////////
-// Rest Pattern and Parameters
+//////////////////////////////////////////////////////////////////
+// Coding Challenge
 
-// 1. Destructuring
-// Spread operator, because on RIGHT side of =
-const arr = [1, 2, ...[3, 4]];
-console.log(arr);
-//
-// Rest operator, because on LEFT side of =
-const [a, b, ...others] = [1, 2, 3, 4, 5];
-console.log(a, b, others);
-
-const [c, , d, ...otherFood] = [
-  ...restaurant.mainMenu,
-  ...restaurant.starterMenu,
-];
-console.log(c, d, otherFood);
-
-// Objects
-const { sat, ...weekdays } = restaurant.openingHours;
-console.log();
-console.log(weekdays);
-
-// 2. Functions
-const add = function (...numbers) {
-  console.log(numbers);
-  let sum = 0;
-  for (let i = 0; i < numbers.length; i++) {
-    sum += numbers[i];
-  }
-  return console.log(sum);
+const game = {
+  team1: 'Bayern Munich',
+  team2: 'Borrussia Dortmund',
+  players: [
+    [
+      'Neuer',
+      'Pavard',
+      'Martinez',
+      'Alaba',
+      'Davies',
+      'Kimmich',
+      'Goretzka',
+      'Coman',
+      'Muller',
+      'Gnarby',
+      'Lewandowski',
+    ],
+    [
+      'Burki',
+      'Schulz',
+      'Hummels',
+      'Akanji',
+      'Hakimi',
+      'Weigl',
+      'Witsel',
+      'Hazard',
+      'Brandt',
+      'Sancho',
+      'Gotze',
+    ],
+  ],
+  score: '4:0',
+  scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+  date: 'Nov 9th, 2037',
+  odds: {
+    team1: 1.33,
+    x: 3.25,
+    team2: 6.5,
+  },
 };
 
-add(2, 3);
-add(5, 3, 7, 2);
-add(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+// Coding Challenge #1
 
-const x = [23, 5, 7];
-add(...x);
+/* 
+We're building a football betting app (soccer for my American friends 😅)!
 
-const addArray = function (numbers) {
-  console.log(numbers);
-  let sum = 0;
-  for (let i = 0; i < numbers.length; i++) {
-    sum += numbers[i];
-  }
-  return console.log(sum);
-};
+Suppose we get data from a web service about a certain game (below). In this challenge we're gonna work with the data. So here are your tasks:
 
-addArray(x);
+1. Create one player array for each team (variables 'players1' and 'players2')
+2. The first player in any player array is the goalkeeper and the others are field players. For Bayern Munich (team 1) create one variable ('gk') with the goalkeeper's name, and one array ('fieldPlayers') with all the remaining 10 field players
+3. Create an array 'allPlayers' containing all players of both teams (22 players)
+4. During the game, Bayern Munich (team 1) used 3 substitute players. So create a new array ('players1Final') containing all the original team1 players plus 'Thiago', 'Coutinho' and 'Perisic'
+5. Based on the game.odds object, create one variable for each odd (called 'team1', 'draw' and 'team2')
+6. Write a function ('printGoals') that receives an arbitrary number of player names (NOT an array) and prints each of them to the console, along with the number of goals that were scored in total (number of player names passed in)
+7. The team with the lower odd is more likely to win. Print to the console which team is more likely to win, WITHOUT using an if/else statement or the ternary operator.
 
-restaurant.orderPizza('mushrooms', 'a', 'b', 'c', 'd');
-////////////////////////////////////////////////////////////////
+TEST DATA FOR 6: Use players 'Davies', 'Muller', 'Lewandowski' and 'Kimmich'. Then, call the function again with players from game.scored
+
+GOOD LUCK 😀
+*/
+
+// const[players1, players2] = game.players;
+// console.log(players1, players2);
+
+// const[gk, ...fieldPlayers] = players1;
+// console.log(gk);
+// console.log(fieldPlayers);
+
+// const allPlayers = [...players1, ...players2];
+// console.log(allPlayers);
+
+// const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic'];
+// console.log(players1Final);
+
+// const {
+//   odds: {
+//     team1, x:draw, team2
+//   }
+// } = game;
+// console.log(team1, draw, team2);
+
+// function printGoals(...players) {
+//   console.log(players);
+//   console.log(`${players.length} goals were scored!`);
+// }
+// printGoals('Davies', 'Muller', 'Lewandowski','Kimmich');
+// printGoals(...game.scored);
+
+// team1 < team2 && console.log('Team1 is more likely to win!');
+// team1 > team2 && console.log('Team2 is more likely to win!');
+
+
+
+
+//////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////
+// Nulish Coalescing ?? Operator
+// restaurant.numGuests = 0;
+// const guests = restaurant.numGuests || 10;
+// console.log(guests);
+
+// // Nullish => ??: Null and Undefined are faulsy (Not 0 or '')
+// const guestCorrect = restaurant.numGuests ?? 10;
+// console.log(guestCorrect);
+//////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////
+// Use ANY data type, return ANY data type, short-circuiting
+// console.log("------------ OR ------------");
+// console.log(3 || 'Raesup');
+// console.log('' || 'Raesup');
+// console.log(undefined || null);
+// console.log(true || 0);
+
+// console.log(undefined || 0 || '' || 'Hello' || 23 || null);
+
+// restaurant.numGuests = 23;
+// const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+// console.log(guests1);
+
+// const guests2 = restaurant.numGuests || 10;
+// console.log(guests2);
+
+
+// console.log("------------ AND ------------");
+// console.log(0 && 'Raesup');
+// console.log(7 && 'Raesup');
+
+// console.log('Hello' && 23 && null && 'Raesup');
+
+// if (restaurant.orderPizza) {
+//   restaurant.orderPizza('mushrooms', 'spinach');
+// }
+
+// restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
+//////////////////////////////////////////////////////////////////
+
+
+// ////////////////////////////////////////////////////////////////
+// // Rest Pattern and Parameters
+
+// // 1. Destructuring
+// // Spread operator, because on RIGHT side of =
+// const arr = [1, 2, ...[3, 4]];
+// console.log(arr);
+// //
+// // Rest operator, because on LEFT side of =
+// const [a, b, ...others] = [1, 2, 3, 4, 5];
+// console.log(a, b, others);
+
+// const [c, , d, ...otherFood] = [
+//   ...restaurant.mainMenu,
+//   ...restaurant.starterMenu,
+// ];
+// console.log(c, d, otherFood);
+
+// // Objects
+// const { sat, ...weekdays } = restaurant.openingHours;
+// console.log(sat);
+// console.log(weekdays);
+
+// // 2. Functions
+// const add = function (...numbers) {
+//   console.log(numbers);
+//   let sum = 0;
+//   for (let i = 0; i < numbers.length; i++) {
+//     sum += numbers[i];
+//   }
+//   return console.log(sum);
+// };
+
+// add(2, 3);
+// add(5, 3, 7, 2);
+// add(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+// const x = [23, 5, 7];
+// add(...x);
+
+// const addArray = function (numbers) {
+//   console.log(numbers);
+//   let sum = 0;
+//   for (let i = 0; i < numbers.length; i++) {
+//     sum += numbers[i];
+//   }
+//   return console.log(sum);
+// };
+
+// addArray(x);
+
+// restaurant.orderPizza('mushrooms', 'a', 'b', 'c', 'd');
+// ////////////////////////////////////////////////////////////////
 
 // ////////////////////////////////////////////////////////////////
 // // Spread Operator (...)
