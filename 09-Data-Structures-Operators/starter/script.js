@@ -53,33 +53,182 @@ const restaurant = {
   },
 };
 
-//////////////////////////////////////////////////////////////////
-// Looping Object: Object Keys, Values, and Entries.
-
-// Property NAMES
-const properties = Object.keys(restaurant.openingHours);
-console.log(properties);
-console.log(properties.length);
-
-let str = `It is the information of the restaurant: `;
-for (const day of properties) {
-  str += `${day}, `;
-}
-console.log(str);
-
-// Property VALUES
-const values = Object.values(restaurant.openingHours);
-console.log(values);
-
-// Property ENTRIES
-const entries = Object.entries(restaurant.openingHours);
-console.log(entries);
-
-for (const [i, {open, close}] of entries) {
-  console.log(i, open, close);
-}
+const openingHours = {
+  thu: {
+    open: 12,
+    close: 22,
+  },
+  fri: {
+    open: 11,
+    close: 23,
+  },
+  sat: {
+    open: 0, // Open 24 hours
+    close: 24,
+  },
+};
 
 //////////////////////////////////////////////////////////////////
+// Summary: Which Data Structure to Use?
+
+//////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////
+// // Maps Fundametals
+// const rest = new Map();
+// rest.set('name', 'Classico Italiano');
+// rest.set(1, 'Firenze, Italy');
+// rest.set(2, 'Lisbon, Portugal');
+// rest
+//   .set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+//   .set('open', 11)
+//   .set('close', 23)
+//   .set(true, 'We are open')
+//   .set(false, 'We are closed');
+
+// console.log(rest);
+
+// console.log(rest.get('name'));
+// console.log(rest.get(true));
+// console.log(rest.get(1));
+
+// const time = 21;
+// console.log(rest.get(time > rest.get('open') && time < rest.get('close')));
+
+// console.log(rest.has('categories'));
+// rest.delete(2);
+// console.log(rest);
+// console.log(rest.size);
+
+// const arr = [1, 2];
+// rest.set(arr, 'Test');
+// rest.set(document.querySelector('h1'), 'Heading');
+// console.log(rest);
+// console.log(rest.get(arr));
+
+// // rest.clear();
+// // console.log(rest);
+// //////////////////////////////////////////////////////////////////
+
+// //////////////////////////////////////////////////////////////////
+// // Maps Iteration
+// const question = new Map([
+//   ['question', 'What is the ....'],
+//   [1, 'C'],
+//   [2, 'Java'],
+//   [3, 'JavaScript'],
+//   ['correct', 3],
+//   [true, 'Correct'],
+//   [false, 'Try again!'],
+// ]);
+// console.log(question);
+
+// const hoursMap = new Map(Object.entries(openingHours));
+// console.log(hoursMap);
+
+// // Quiz App
+// console.log(question.get('question'));
+
+// for (const [key, value] of question) {
+//   if (typeof key === 'number') {
+//     console.log(`Answer ${key}: ${value}`);
+//   }
+// }
+
+// // const answer = Number(prompt('Your answer?'));
+// // console.log(answer);
+
+// // console.log(
+// //   answer === question.get('correct') ? question.get(true) : question.get(false)
+// // );
+
+// // console.log(question.get(answer === question.get('correct')));
+
+// // Convert map to array
+// console.log([...question]);
+// console.log([...question.keys()]);
+// console.log([...question.values()]);
+//////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////
+// Sets
+// Sets is a Object data structure which ignore duplicates
+// const ordersSet = new Set([
+//   'Pasta',
+//   'Pizza',
+//   'Pizza',
+//   'Risotto',
+//   'Pasta',
+//   'Pizza',
+// ]);
+
+// // Pasta, Pizza, Risotto
+// console.log(ordersSet);
+
+// // 3
+// console.log(ordersSet.size);
+
+// // true
+// console.log(ordersSet.has('Pizza'));
+// // false
+// console.log(ordersSet.has('Bread'));
+
+// ordersSet.add('Garlic Bread');
+// ordersSet.add('Garlic Bread');
+// // Pasta, Pizza, Risotto, Garlic Bread
+// console.log(ordersSet);
+
+// // Pasta, Pizza, Garlic Bread
+// ordersSet.delete('Risotto');
+// console.log(ordersSet);
+
+// ordersSet.clear();
+// console.log(ordersSet);
+
+// for (const order of ordersSet) {
+//   console.log(order);
+// }
+
+// //R,a,e,s,u,p
+// console.log(new Set('Raesup'));
+
+// // Example
+// const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
+// const staffUnique = new Set(staff);
+// // Set -> Waiter, Chef, Manager
+// console.log(staffUnique);
+
+// const staffUniqueArray = [...new Set(staff)];
+// // Array -> Waiter, Chef, Manager
+// console.log(staffUniqueArray);
+//////////////////////////////////////////////////////////////////
+
+// //////////////////////////////////////////////////////////////////
+// // Looping Object: Object Keys, Values, and Entries.
+
+// // Property NAMES
+// const properties = Object.keys(restaurant.openingHours);
+// console.log(properties);
+// console.log(properties.length);
+
+// let str = `It is the information of the restaurant: `;
+// for (const day of properties) {
+//   str += `${day}, `;
+// }
+// console.log(str);
+
+// // Property VALUES
+// const values = Object.values(restaurant.openingHours);
+// console.log(values);
+
+// // Property ENTRIES
+// const entries = Object.entries(restaurant.openingHours);
+// console.log(entries);
+
+// for (const [i, { open, close }] of entries) {
+//   console.log(i, open, close);
+// }
+// ////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////
 // // Optional Chaining (?)
@@ -92,7 +241,7 @@ for (const [i, {open, close}] of entries) {
 // console.log(restaurant?.openingHours?.mon?.open);
 
 // // Examples
-// const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']; 
+// const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
 // // for of loop
 // for (const day of days) {
@@ -193,11 +342,9 @@ for (const [i, {open, close}] of entries) {
 //   console.log(`${index+1}: ${item}`)
 // }
 
-
 // // forEach
 // menu.forEach(item => console.log(item))
 //////////////////////////////////////////////////////////////////
-
 
 //////////////////////////////////////////////////////////////////
 // Nulish Coalescing ?? Operator
@@ -227,7 +374,6 @@ for (const [i, {open, close}] of entries) {
 // const guests2 = restaurant.numGuests || 10;
 // console.log(guests2);
 
-
 // console.log("------------ AND ------------");
 // console.log(0 && 'Raesup');
 // console.log(7 && 'Raesup');
@@ -240,7 +386,6 @@ for (const [i, {open, close}] of entries) {
 
 // restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach');
 //////////////////////////////////////////////////////////////////
-
 
 // ////////////////////////////////////////////////////////////////
 // // Rest Pattern and Parameters
@@ -425,46 +570,6 @@ for (const [i, {open, close}] of entries) {
 
 //////////////////////////////////////////////////////////////////
 // Coding Challenge
-// const game = {
-//   team1: 'Bayern Munich',
-//   team2: 'Borrussia Dortmund',
-//   players: [
-//     [
-//       'Neuer',
-//       'Pavard',
-//       'Martinez',
-//       'Alaba',
-//       'Davies',
-//       'Kimmich',
-//       'Goretzka',
-//       'Coman',
-//       'Muller',
-//       'Gnarby',
-//       'Lewandowski',
-//     ],
-//     [
-//       'Burki',
-//       'Schulz',
-//       'Hummels',
-//       'Akanji',
-//       'Hakimi',
-//       'Weigl',
-//       'Witsel',
-//       'Hazard',
-//       'Brandt',
-//       'Sancho',
-//       'Gotze',
-//     ],
-//   ],
-//   score: '4:0',
-//   scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
-//   date: 'Nov 9th, 2037',
-//   odds: {
-//     team1: 1.33,
-//     x: 3.25,
-//     team2: 6.5,
-//   },
-// };
 
 // Coding Challenge #1
 
@@ -524,4 +629,95 @@ GOOD LUCK 😀
 // // 7.
 // team1 < team2 && console.log('Team1 is more likely to win!');
 // team1 > team2 && console.log('Team2 is more likely to win!');
+
+// Coding Challenge #2
+
+/* 
+Let's continue with our football betting app!
+
+1. Loop over the game.scored array and print each player name to the console, along with the goal number (Example: "Goal 1: Lewandowski")
+2. Use a loop to calculate the average odd and log it to the console (We already studied how to calculate averages, you can go check if you don't remember)
+3. Print the 3 odds to the console, but in a nice formatted way, exaclty like this:
+      Odd of victory Bayern Munich: 1.33
+      Odd of draw: 3.25
+      Odd of victory Borrussia Dortmund: 6.5
+Get the team names directly from the game object, don't hardcode them (except for "draw"). HINT: Note how the odds and the game objects have the same property names 😉
+
+BONUS: Create an object called 'scorers' which contains the names of the players who scored as properties, and the number of goals as the value. In this game, it will look like this:
+      {
+        Gnarby: 1,
+        Hummels: 1,
+        Lewandowski: 2
+      }
+
+GOOD LUCK 😀
+*/
+
+// // 1.
+// for (const [i, scored] of game.scored.entries()) {
+//   console.log(`Goal ${i + 1}: ${scored}`);
+// }
+
+// // 2.
+// const odds = Object.values(game.odds);
+// let sum = 0;
+// for (const odd of odds) {
+//   sum += odd;
+// }
+// console.log(sum / odds.length);
+
+// // 3.
+// for (const [team, odd] of Object.entries(game.odds)) {
+//   const teamString = team === 'x' ? 'draw' : `victory ${game[team]}`;
+//   console.log(`Odd of ${teamString}: ${odd}`);
+// }
+
+// // Bonus.
+// const scorers = {};
+// for (const player of game.scored) {
+//   scorers[player] ? scorers[player]++ : (scorers[player] = 1);
+// }
+// console.log(scorers);
+
+const game = {
+  team1: 'Bayern Munich',
+  team2: 'Borrussia Dortmund',
+  players: [
+    [
+      'Neuer',
+      'Pavard',
+      'Martinez',
+      'Alaba',
+      'Davies',
+      'Kimmich',
+      'Goretzka',
+      'Coman',
+      'Muller',
+      'Gnarby',
+      'Lewandowski',
+    ],
+    [
+      'Burki',
+      'Schulz',
+      'Hummels',
+      'Akanji',
+      'Hakimi',
+      'Weigl',
+      'Witsel',
+      'Hazard',
+      'Brandt',
+      'Sancho',
+      'Gotze',
+    ],
+  ],
+  score: '4:0',
+  scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+  date: 'Nov 9th, 2037',
+  odds: {
+    team1: 1.33,
+    x: 3.25,
+    team2: 6.5,
+  },
+};
+
 //////////////////////////////////////////////////////////////////
