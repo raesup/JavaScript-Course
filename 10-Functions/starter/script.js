@@ -4,19 +4,23 @@
 // Default Parameters
 const bookings = [];
 
-const createBooking = function(flightNum, numPassengers = 1, price = 199 * numPassengers) {
-    // Default Parameters, before ES5
-    // numPassengers = numPassengers || 1;
-    // price = price || 199;
+const createBooking = function (
+  flightNum,
+  numPassengers = 1,
+  price = 199 * numPassengers
+) {
+  // Default Parameters, before ES5
+  // numPassengers = numPassengers || 1;
+  // price = price || 199;
 
-    const booking = {
-        flightNum,
-        numPassengers,
-        price,
-    }
-    console.log(booking);
-    bookings.push(booking);
-}
+  const booking = {
+    flightNum,
+    numPassengers,
+    price,
+  };
+  console.log(booking);
+  bookings.push(booking);
+};
 
 createBooking('LH123');
 createBooking('LH123', 2, 800);
@@ -29,23 +33,23 @@ console.log(bookings);
 // Value vs Reference
 const flight = 'LH234';
 const raesup = {
-    name: 'Raesup Kim',
-    passport: 12341234
-}
+  name: 'Raesup Kim',
+  passport: 12341234,
+};
 
-const checkIn = function(flightNum, passenger) {
-    // does not affect to original variable(String)
-    flightNum = 'LH999';
+const checkIn = function (flightNum, passenger) {
+  // does not affect to original variable(String)
+  flightNum = 'LH999';
 
-    // does affect to original variable(object)
-    passenger.name = 'Mr. ' + passenger.name;
+  // does affect to original variable(object)
+  passenger.name = 'Mr. ' + passenger.name;
 
-    // if (passenger.passport === 12341234) {
-    //     alert('Check in');
-    // } else {
-    //     alert('Wrong passport');
-    // }
-}
+  // if (passenger.passport === 12341234) {
+  //     alert('Check in');
+  // } else {
+  //     alert('Wrong passport');
+  // }
+};
 
 checkIn(flight, raesup);
 // passing primitive type such as string is passing copy of value
@@ -53,55 +57,55 @@ console.log(flight);
 // passing reference type such as object is passing reference itself
 console.log(raesup);
 
-const newPassport = function(person) {
-    person.passport = Math.trunc(Math.random() * 10000000000);
-}
+const newPassport = function (person) {
+  person.passport = Math.trunc(Math.random() * 10000000000);
+};
 
 newPassport(raesup);
 checkIn(flight, raesup);
 
 //////////////////////////////////////////////////
 // Functions accepting callback functions
-const oneWord = function(str) {
-    // return str.replace(' ', '').toLowerCase();
-    return str.replace(/ /g, '').toLowerCase();
-}
+const oneWord = function (str) {
+  // return str.replace(' ', '').toLowerCase();
+  return str.replace(/ /g, '').toLowerCase();
+};
 
-const upperFirstWord = function(str) {
-    const [first, ...others] = str.split(' ');
-    return [first.toUpperCase(), ...others].join(' ');
-}
+const upperFirstWord = function (str) {
+  const [first, ...others] = str.split(' ');
+  return [first.toUpperCase(), ...others].join(' ');
+};
 
 console.log(oneWord('raesup kim'));
 console.log(upperFirstWord('raesup kim'));
 
 // Higher-order function
-const transformer = function(str, fn) {
-    console.log(`Original string: ${str}`)
-    console.log(`transformed string: ${fn(str)}`);
+const transformer = function (str, fn) {
+  console.log(`Original string: ${str}`);
+  console.log(`transformed string: ${fn(str)}`);
 
-    console.log(`Transformed by: ${fn.name}`)
-}
+  console.log(`Transformed by: ${fn.name}`);
+};
 
 // transformer is high-order function and upperFirstWord is callback function
 transformer('JavaScript is the best', upperFirstWord);
 transformer('JavaScript is the best', oneWord);
 
 // JS uses callbacks all the time
-const high5 = function() {
-    console.log('Hello');
-}
+const high5 = function () {
+  console.log('Hello');
+};
 document.body.addEventListener('click', high5);
 
 ['Raesup', 'Deborah', 'Arin', 'Serin'].forEach(high5);
 
 //////////////////////////////////////////////////
 // Functions returning functions
-const greet = function(greeting) {
-    return function(name) {
-        console.log(`${greeting} ${name}`);
-    }
-}
+const greet = function (greeting) {
+  return function (name) {
+    console.log(`${greeting} ${name}`);
+  };
+};
 
 const greetArr = greeting => name => console.log(`${greeting} ${name}`);
 
@@ -118,23 +122,25 @@ greetArr('Hi')('Somebody');
 //////////////////////////////////////////////////
 // The Call and Apply Methods
 const lufthansa = {
-    airline: 'Lufthansa',
-    iataCode: 'LH',
-    bookings: [],
-    book(flightNum, name) {
-        console.log(`${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`);
-        this.bookings.push({flight: `${this.iataCode}${flightNum}`, name})
-    }
-}
+  airline: 'Lufthansa',
+  iataCode: 'LH',
+  bookings: [],
+  book(flightNum, name) {
+    console.log(
+      `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
+    );
+    this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
+  },
+};
 
 lufthansa.book(239, 'Raesup Kim');
 lufthansa.book(635, 'Deborah Kwon');
 console.log(lufthansa);
 
 const eurowings = {
-    airline: 'Eurowings',
-    iataCode: 'EW',
-    bookings: [],
+  airline: 'Eurowings',
+  iataCode: 'EW',
+  bookings: [],
 };
 
 const book = lufthansa.book;
@@ -150,10 +156,10 @@ book.call(lufthansa, 239, 'Serin Kim');
 console.log(lufthansa);
 
 const swiss = {
-    airline: 'Swiss Air Lines',
-    iataCode: 'LX',
-    bookings: [],
-}
+  airline: 'Swiss Air Lines',
+  iataCode: 'LX',
+  bookings: [],
+};
 
 book.call(swiss, 111, 'Hello Somebody');
 console.log(swiss);
@@ -183,12 +189,14 @@ console.log(eurowings);
 
 // With Event Listeners
 lufthansa.planes = 300;
-lufthansa.buyPlane = function() {
-    console.log(this);
-    this.planes++;
-    console.log(this.planes)
+lufthansa.buyPlane = function () {
+  console.log(this);
+  this.planes++;
+  console.log(this.planes);
 };
-document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+document
+  .querySelector('.buy')
+  .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
 
 // Partial application
 const addTax = (rate, value) => value + value * rate;
@@ -198,11 +206,11 @@ console.log(addTax(0.1, 200));
 const addVAT = addTax.bind(null, 0.23);
 console.log(addVAT(200));
 
-const addTaxRate = function(rate) {
-    return function(value) {
-        return value + value * rate;
-    }
-}
+const addTaxRate = function (rate) {
+  return function (value) {
+    return value + value * rate;
+  };
+};
 const addVAT1 = addTaxRate(0.23);
 console.log(addVAT1(200));
 
@@ -241,52 +249,79 @@ GOOD LUCK 😀
 */
 
 const poll = {
-    question: 'What is your favourite programming language?',
-    options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
-    // This generates [0, 0, 0, 0]. More in the next section 😃
-    answers: new Array(4).fill(0),
-    registerNewAnswer() {
-        poll.answers.push(prompt(`${question}
+  question: 'What is your favourite programming language?',
+  options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
+  // This generates [0, 0, 0, 0]. More in the next section 😃
+  answers: new Array(4).fill(0),
+  registerNewAnswer() {
+    poll.answers.push(
+      prompt(`${question}
         What is your favourite programming language?
         0: JavaScript
         1: Python
         2: Rust
         3: C++
         (Write option number)
-        `));
-        displayResults(poll.answers);
-    },
+        `)
+    );
+    displayResults(poll.answers);
+  },
+};
 
-}
-
-const displayResults = function(type) {
-    if(typeof type === 'array') {
-        console.log(type);
-    } else if (typeof type === 'string') {
-        console.log(`Poll results are ` + type);
-    }
-}
+const displayResults = function (type) {
+  if (typeof type === 'array') {
+    console.log(type);
+  } else if (typeof type === 'string') {
+    console.log(`Poll results are ` + type);
+  }
+};
 
 const poll = {
-    answers: [],
-    registerNewAnswer() {
-        poll.answers.push(prompt(`
+  answers: [],
+  registerNewAnswer() {
+    poll.answers.push(
+      prompt(`
         What is your favourite programming language?
         0: JavaScript
         1: Python
         2: Rust
         3: C++
         (Write option number)
-        `));
-        displayResults(poll.answers);
-    },
-}
+        `)
+    );
+    displayResults(poll.answers);
+  },
+};
 
-
-
-document.querySelector('.poll').addEventListener('click', poll.registerNewAnswer);
+document
+  .querySelector('.poll')
+  .addEventListener('click', poll.registerNewAnswer);
 console.log(poll);
 
-const array = [1,2,3,4]
+const array = [1, 2, 3, 4];
 console.log(typeof array);
 console.log(typeof '1234');
+
+//////////////////////////////////////////////////
+// Immediately Invoked Function Expressions (IIFE)
+const runOnce = function () {
+  console.log('This will never run again');
+};
+runOnce();
+
+// IIFE
+(function () {
+  console.log('This will never run again');
+  const isPrivate = 23;
+})();
+
+// console.log(isPrivate);
+
+(() => console.log('This will ALSO never run again'))();
+
+{
+  const isPrivate = 23;
+  var notPrivate = 46;
+}
+// console.log(isPrivate);
+console.log(notPrivate);
