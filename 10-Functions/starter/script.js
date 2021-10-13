@@ -254,142 +254,116 @@ const poll = {
   // This generates [0, 0, 0, 0]. More in the next section 😃
   answers: new Array(4).fill(0),
   registerNewAnswer() {
-    poll.answers.push(
-      prompt(`${question}
-        What is your favourite programming language?
-        0: JavaScript
-        1: Python
-        2: Rust
-        3: C++
-        (Write option number)
-        `)
-    );
-    displayResults(poll.answers);
-  },
-};
+    const answer = Number(prompt(`${this.question}\n${this.options.join('\n')}\n(Write option number)
+    `))
 
-const displayResults = function (type) {
-  if (typeof type === 'array') {
-    console.log(type);
-  } else if (typeof type === 'string') {
-    console.log(`Poll results are ` + type);
+    if (typeof answer === 'number' && answer < this.answers.length && answer >=0) {
+      this.answers[answer]++;
+    } else {
+      alert(`${answer} is not proper.`)
+    }
+
+    this.displayResults();
+    this.displayResults('string');
+  },
+
+  displayResults(type = 'array') {
+    if (type === 'array') {
+      console.log(this.answers);
+    } else if (type === 'string') {
+      console.log(`Poll results are ${this.answers.join(', ')}`)
+    }
   }
-};
-
-const poll = {
-  answers: [],
-  registerNewAnswer() {
-    poll.answers.push(
-      prompt(`
-        What is your favourite programming language?
-        0: JavaScript
-        1: Python
-        2: Rust
-        3: C++
-        (Write option number)
-        `)
-    );
-    displayResults(poll.answers);
-  },
 };
 
 document
   .querySelector('.poll')
-  .addEventListener('click', poll.registerNewAnswer);
-console.log(poll);
+  .addEventListener('click', poll.registerNewAnswer.bind(poll));
 
-const array = [1, 2, 3, 4];
-console.log(typeof array);
-console.log(typeof '1234');
+poll.displayResults.call({answers: [5, 2, 3]}, 'string');
+poll.displayResults.call({answers: [1, 5, 3, 9, 6, 1]});
 
 //////////////////////////////////////////////////
 // Immediately Invoked Function Expressions (IIFE)
-const runOnce = function () {
+const runOnce = function() {
   console.log('This will never run again');
-};
+}
 runOnce();
 
 // IIFE
-(function () {
-  console.log('This will never run again');
-  const isPrivate = 23;
+(function() {
+  console.log('This will never run again')
 })();
 
-// console.log(isPrivate);
-
-(() => console.log('This will ALSO never run again'))();
-
-{
-  const isPrivate = 23;
-  var notPrivate = 46;
-}
-// console.log(isPrivate);
-console.log(notPrivate);
+// IIFE Arrow Function
+(() => console.log('This will never run again'))()
 
 
 //////////////////////////////////////////////////
 // Closures
-const secureBooking = function () {
-    let passengerCount = 0;
-  
-    return function () {
-      passengerCount++;
-      console.log(`${passengerCount} passengers`);
-    };
-  };
-  
-  const booker = secureBooking();
-  
-  booker();
-  booker();
-  booker();
-  
-  console.dir(booker);
+const secureBooking = function() {
+  let passengerCount = 0;
 
-  ///////////////////////////////////////
-// More Closure Examples
+  return function() {
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  }
+}
+
+// booker is the return function of secureBooking.
+// Closure makes the booker function can access to the function that was the birth place of itself which is secureBooking.
+// Closure has high priority over scope chain.
+const booker = secureBooking();
+booker();
+booker();
+booker();
+console.dir(booker);
+
+//////////////////////////////////////////////////
+// More Closures Examples
+
 // Example 1
 let f;
 
-const g = function () {
+const g = function() {
   const a = 23;
-  f = function () {
+  f = function() {
     console.log(a * 2);
-  };
-};
+  }
+}
 
-const h = function () {
+const h = function() {
   const b = 777;
-  f = function () {
+  f = function() {
     console.log(b * 2);
-  };
-};
+  }
+}
 
 g();
+// f function has access to a which is not its scope. thanks to closures
 f();
-console.dir(f);
 
-// Re-assigning f function
+// reassigned f function
 h();
+// f function has access to b which is not its scope. thanks to closures
 f();
-console.dir(f);
 
 // Example 2
-const boardPassengers = function (n, wait) {
+const boardPassengers = function(n, wait) {
   const perGroup = n / 3;
 
-  setTimeout(function () {
+  // closure
+  setTimeout(function() {
     console.log(`We are now boarding all ${n} passengers`);
-    console.log(`There are 3 groups, each with ${perGroup} passengers`);
+    console.log(`There are 3 groups, each with ${perGroup} passengers`)
   }, wait * 1000);
-
   console.log(`Will start boarding in ${wait} seconds`);
-};
+}
 
-const perGroup = 1000;
 boardPassengers(180, 3);
 
-///////////////////////////////////////
+
+//////////////////////////////////////////////////
 // Coding Challenge #2
 
 /* 
@@ -402,7 +376,6 @@ And now explain to YOURSELF (or someone around you) WHY this worked! Take all th
 GOOD LUCK 😀
 */
 
-
 (function () {
   const header = document.querySelector('h1');
   header.style.color = 'red';
@@ -411,3 +384,5 @@ GOOD LUCK 😀
     header.style.color = 'blue';
   });
 })();
+
+// test
