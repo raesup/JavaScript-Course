@@ -74,3 +74,37 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+// Simple Array Methods
+let arr = ['a', 'b', 'c', 'd', 'e'];
+
+// slice: shallow copy and return other array
+// c, d, e
+console.log(arr.slice(2))
+// c, d
+console.log(arr.slice(2,4));
+// d, e
+console.log(arr.slice(-2));
+// b, c
+console.log(arr.slice(1, -2));
+
+// splice: no copy, return original array
+// c, d, e
+console.log(arr.splice(2, 3));
+// b
+console.log(arr.splice(-1));
+// a
+console.log(arr)
+
+// Reverse: no copy, return original array
+arr = ['a', 'b', 'c', 'd', 'e'];
+const arr2 = ['j', 'i', 'h', 'g', 'j'];
+console.log(arr2.reverse());
+console.log(arr2);
+
+// concat
+const letters = arr.concat(arr2);
+console.log(letters);
+console.log([...arr, ...arr2]);
+
+// join: returns string
+console.log(letters.join(' - '));
